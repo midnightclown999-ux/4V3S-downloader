@@ -210,3 +210,24 @@ button:active { border: 2px solid #404040; border-right-color: #fff; border-bott
     border: 2px solid #888; border-bottom-color: #fff; border-right-color: #fff;
     padding: 4px 10px; background: #c0c0c0;
 }
+/* --- STYLE UNTUK IKLAN (OPSI 1) --- */
+.ad-container-top {
+    position: absolute;
+    top: 10px;          /* Jarak dari atas layar */
+    left: 50%;
+    transform: translateX(-50%); /* Agar pas di tengah horisontal */
+    z-index: 5;         /* Di bawah window (z-index:10) tapi di atas background */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.4); /* Kotak transparan gelap */
+    padding: 8px;
+    border: 1px dashed #fff;
+    border-radius: 4px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* Sembunyikan iklan banner di HP agar layar tidak penuh */
+@media (max-width: 600px) {
+    .ad-container-top {
+        display: none; 
+    }
+}
