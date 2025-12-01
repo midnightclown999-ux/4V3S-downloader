@@ -28,7 +28,7 @@ async function processVideo() {
     const resList = document.getElementById('resolutionList');
     const videoMeta = document.getElementById('videoMeta');
 
-    // Validasi Input
+    // Validasi
     if (!urlInput || urlInput.trim() === "") {
         alert("ERROR: URL NOT FOUND. PLEASE INPUT LINK.");
         return;
@@ -83,7 +83,7 @@ function renderResult(data) {
         <p style="font-family:'VT323'; font-size:1.2rem; margin-top:5px;">${title}</p>
     `;
 
-    // --- LOGIKA SORTING ---
+    // --- LOGIKA FILTERING & SORTING ---
     let links = []; 
     
     if (data.medias && Array.isArray(data.medias)) {
@@ -92,6 +92,7 @@ function renderResult(data) {
         links.push({ quality: 'HD', url: data.url, extension: 'mp4' });
     }
 
+    // 1. Helper: Cek Resolusi (Angka)
     const getResValue = (item) => {
         if (item.extension === 'mp3' || item.type === 'audio') return 0;
         const qual = item.quality || ""; 
@@ -100,7 +101,34 @@ function renderResult(data) {
         return 1; 
     };
 
-    links.sort((a, b) => getResValue(b) - getResValue(a));
+    // 2. Helper: Cek Apakah Ada Suara?
+    const checkAudio = (item) => {
+        // Jika file audio/mp3, pasti ada suara
+        if (item.extension === 'mp3' || item.type === 'audio') return true;
+        
+        // Cek flag dari API (kadang API kasih info 'audio: false')
+        if (item.audio === false) return false;
+        if (item.mute === true) return false;
+        
+        // Cek dari teks quality (kadang tertulis 'video only')
+        if (item.quality && item.quality.toLowerCase().includes('video only')) return false;
+        if (item.quality && item.quality.toLowerCase().includes('mute')) return false;
+
+        return true; // Default anggap ada suara
+    };
+
+    // 3. SORTING: Prioritaskan yg ADA SUARA dulu, baru Resolusi Tinggi
+    links.sort((a, b) => {
+        const audioA = checkAudio(a) ? 1 : 0;
+        const audioB = checkAudio(b) ? 1 : 0;
+
+        // Jika status audio beda, menangkan yg ada audio
+        if (audioA !== audioB) {
+            return audioB - audioA;
+        }
+        // Jika status audio sama, urutkan berdasarkan resolusi
+        return getResValue(b) - getResValue(a);
+    });
 
     if (links.length > 0) {
         links.forEach(item => {
@@ -114,13 +142,29 @@ function renderResult(data) {
                 if (item.formattedSize) label += ` (${item.formattedSize})`;
                 
                 let icon = 'fa-file-video';
+                let soundBadge = '<span style="color:#0f0;">🔊</span>'; // Ikon Speaker Hijau
+                let extraStyle = '';
+
+                // Logika Tampilan Audio vs Video
                 if (item.extension === 'mp3' || item.type === 'audio') {
                     icon = 'fa-music';
-                    label = "Audio Only";
+                    label = "AUDIO ONLY (MP3)";
+                    soundBadge = '';
+                } else if (!checkAudio(item)) {
+                    // Jika Video Bisu
+                    icon = 'fa-volume-xmark';
+                    soundBadge = '<span style="color:red; font-size:0.8rem;">🔇 NO SOUND</span>';
+                    extraStyle = 'background:#eee; color:#999; border-color:#999;'; // Bikin tombol agak abu-abu
+                    label += ' (Video Only)';
+                }
+
+                // Terapkan style khusus untuk tombol mute
+                if(extraStyle) {
+                   linkBtn.style.cssText = extraStyle;
                 }
 
                 linkBtn.innerHTML = `
-                    <span><i class="fa-solid ${icon}"></i> DOWNLOAD</span>
+                    <span><i class="fa-solid ${icon}"></i> DOWNLOAD ${soundBadge}</span>
                     <span class="quality-badge">${label}</span>
                 `;
                 resList.appendChild(linkBtn);
@@ -129,12 +173,10 @@ function renderResult(data) {
     } else {
         resList.innerHTML = '<p>DATA CORRUPTED: No links found.</p>';
     }
-} 
-// PASTIKAN KURUNG KURAWAL INI TERSALIN (Ini menutup fungsi renderResult)
+}
 
 function resetApp() {
     document.getElementById('resultArea').classList.add('hidden');
     document.getElementById('videoUrl').value = '';
     document.getElementById('videoUrl').focus();
 }
-// PASTIKAN KURUNG KURAWAL INI JUGA TERSALIN (Ini menutup fungsi resetApp)
