@@ -1,5 +1,5 @@
 /* =========================================
-   STYLE.CSS - NEOTOKYO EDITION
+   STYLE.CSS - NEOTOKYO EDITION (iOS Fix)
    ========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
@@ -12,68 +12,37 @@
 body {
     font-family: 'VT323', monospace;
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Mencegah scroll keseluruhan */
     display: flex;
     justify-content: center;
     align-items: center;
     
-    /* --- UPDATE BACKGROUND --- */
-    /* Pastikan nama file gambar Anda sesuai dengan yang ada di dalam url('') */
     background-image: url('tokyo-bg.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
-    background-size: cover; /* Agar gambar memenuhi layar */
+    background-size: cover;
     
     position: relative;
 }
 
-/* (BAGIAN AWAN DIHAPUS AGAR SESUAI TEMA MALAM) */
-
-/* --- IKLAN 1: TOP BANNER (728x90) --- */
+/* --- IKLAN --- */
 .ad-container-top {
-    position: absolute;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
-    text-align: center;
-    /* Background sedikit lebih gelap transparan agar kontras dengan malam */
-    background: rgba(0, 0, 0, 0.6);
-    padding: 5px;
-    border: 1px dashed #fff;
-    border-radius: 4px;
+    position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
+    z-index: 5; text-align: center; background: rgba(0, 0, 0, 0.6);
+    padding: 5px; border: 1px dashed #fff; border-radius: 4px;
     box-shadow: 0 0 15px rgba(0,0,0,0.8);
 }
-
-/* --- IKLAN 2: SIDEBAR KANAN (NATIVE 1:4) --- */
 .ad-container-side {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-60%);
-    z-index: 5;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.5); /* Semi transparan gelap */
-    padding: 10px;
-    border: 2px solid #fff;
-    border-right-color: #404040;
-    border-bottom-color: #404040;
-    box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
-    max-width: 180px; 
-    min-height: 400px;
+    position: absolute; right: 20px; top: 50%; transform: translateY(-60%);
+    z-index: 5; text-align: center; background: rgba(0, 0, 0, 0.5);
+    padding: 10px; border: 2px solid #fff; border-right-color: #404040;
+    border-bottom-color: #404040; box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
+    max-width: 180px; min-height: 400px;
 }
-
-/* Label Iklan */
 .ad-label {
-    color: #fff;
-    font-family: 'VT323';
-    font-size: 12px;
-    margin-bottom: 5px;
-    text-shadow: 1px 1px 0 #000;
-    background: #000080;
-    display: inline-block;
-    padding: 0 4px;
+    color: #fff; font-family: 'VT323'; font-size: 12px; margin-bottom: 5px;
+    text-shadow: 1px 1px 0 #000; background: #000080; display: inline-block; padding: 0 4px;
 }
 
 /* RESPONSIVE IKLAN */
@@ -82,13 +51,11 @@ body {
 
 /* --- DESKTOP SHORTCUTS --- */
 .desktop-grid {
-    position: absolute; top: 20px; left: 20px;
-    display: flex; flex-direction: column; gap: 20px; z-index: 0;
+    position: absolute; top: 20px; left: 20px; display: flex; flex-direction: column; gap: 20px; z-index: 0;
 }
 .desktop-shortcut {
     display: flex; flex-direction: column; align-items: center; width: 80px;
     text-align: center; color: white; transition: 0.2s; cursor: pointer;
-    /* Tambah shadow agar terbaca di background gelap */
     text-shadow: 2px 2px 4px #000;
 }
 .desktop-shortcut:hover { filter: brightness(1.2); transform: scale(1.05); }
@@ -102,7 +69,6 @@ body {
     font-family: 'VT323', monospace; font-size: 1.1rem;
     background: transparent; padding: 2px 4px; text-shadow: 2px 2px 0 #000;
 }
-/* Warna Logo */
 .yt { color: #FF0000; } .tt { color: #000; } .ig { color: #E1306C; }
 .fb { color: #1877F2; } .tw { color: #1DA1F2; } .sc { color: #FF5500; }
 
@@ -111,7 +77,6 @@ body {
     width: 90%; max-width: 450px; max-height: 75vh;
     background: #c0c0c0; border: 2px solid #fff;
     border-right-color: #404040; border-bottom-color: #404040;
-    /* Shadow lebih kuat agar pop-out dari background gelap */
     box-shadow: 15px 15px 0 rgba(0,0,0,0.5);
     display: flex; flex-direction: column; z-index: 10;
     animation: popUp 0.5s;

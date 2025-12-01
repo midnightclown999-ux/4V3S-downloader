@@ -20,6 +20,20 @@ document.addEventListener('DOMContentLoaded', function() {
 const rapidApiKey = '9fa87cb832msh951f5c755373df7p1f46cajsn459f2635b5c5'; 
 const rapidApiHost = 'social-download-all-in-one.p.rapidapi.com';
 
+// --- DETEKSI APAKAH USER PAKAI IPHONE/IPAD (IOS) ---
+function isIOS() {
+    return [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod'
+    ].includes(navigator.platform)
+    // iPad on iOS 13 detection
+    || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+}
+
 async function processVideo() {
     const urlInput = document.getElementById('videoUrl').value;
     const resultArea = document.getElementById('resultArea');
@@ -103,30 +117,19 @@ function renderResult(data) {
 
     // 2. Helper: Cek Apakah Ada Suara?
     const checkAudio = (item) => {
-        // Jika file audio/mp3, pasti ada suara
         if (item.extension === 'mp3' || item.type === 'audio') return true;
-        
-        // Cek flag dari API (kadang API kasih info 'audio: false')
         if (item.audio === false) return false;
         if (item.mute === true) return false;
-        
-        // Cek dari teks quality (kadang tertulis 'video only')
         if (item.quality && item.quality.toLowerCase().includes('video only')) return false;
         if (item.quality && item.quality.toLowerCase().includes('mute')) return false;
-
-        return true; // Default anggap ada suara
+        return true; 
     };
 
-    // 3. SORTING: Prioritaskan yg ADA SUARA dulu, baru Resolusi Tinggi
+    // 3. SORTING
     links.sort((a, b) => {
         const audioA = checkAudio(a) ? 1 : 0;
         const audioB = checkAudio(b) ? 1 : 0;
-
-        // Jika status audio beda, menangkan yg ada audio
-        if (audioA !== audioB) {
-            return audioB - audioA;
-        }
-        // Jika status audio sama, urutkan berdasarkan resolusi
+        if (audioA !== audioB) return audioB - audioA;
         return getResValue(b) - getResValue(a);
     });
 
@@ -136,29 +139,28 @@ function renderResult(data) {
                 const linkBtn = document.createElement('a');
                 linkBtn.className = 'res-btn';
                 linkBtn.href = item.url;
+                
+                // PENTING UNTUK IOS: Tetap buka di tab baru
                 linkBtn.target = '_blank';
                 
                 let label = item.quality || item.extension || 'Download';
                 if (item.formattedSize) label += ` (${item.formattedSize})`;
                 
                 let icon = 'fa-file-video';
-                let soundBadge = '<span style="color:#0f0;">🔊</span>'; // Ikon Speaker Hijau
+                let soundBadge = '<span style="color:#0f0;">🔊</span>'; 
                 let extraStyle = '';
 
-                // Logika Tampilan Audio vs Video
                 if (item.extension === 'mp3' || item.type === 'audio') {
                     icon = 'fa-music';
                     label = "AUDIO ONLY (MP3)";
                     soundBadge = '';
                 } else if (!checkAudio(item)) {
-                    // Jika Video Bisu
                     icon = 'fa-volume-xmark';
                     soundBadge = '<span style="color:red; font-size:0.8rem;">🔇 NO SOUND</span>';
-                    extraStyle = 'background:#eee; color:#999; border-color:#999;'; // Bikin tombol agak abu-abu
+                    extraStyle = 'background:#eee; color:#999; border-color:#999;'; 
                     label += ' (Video Only)';
                 }
 
-                // Terapkan style khusus untuk tombol mute
                 if(extraStyle) {
                    linkBtn.style.cssText = extraStyle;
                 }
@@ -167,6 +169,16 @@ function renderResult(data) {
                     <span><i class="fa-solid ${icon}"></i> DOWNLOAD ${soundBadge}</span>
                     <span class="quality-badge">${label}</span>
                 `;
+
+                // --- IOS EVENT LISTENER ---
+                // Jika user adalah iOS, tampilkan pesan panduan saat klik
+                linkBtn.addEventListener('click', (e) => {
+                    if (isIOS()) {
+                        // Jangan preventDefault, biarkan tab terbuka, tapi kasih alert dulu
+                        alert("⚠️ PANDUAN USER IPHONE/IOS:\n\nVideo akan terbuka di player baru.\nUntuk menyimpan:\n1. Klik tombol 'Share' (Kotak panah atas) di bawah layar.\n2. Pilih 'Save to Files' atau 'Simpan ke File'.");
+                    }
+                });
+
                 resList.appendChild(linkBtn);
             }
         });
