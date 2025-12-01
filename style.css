@@ -1,0 +1,212 @@
+/* =========================================
+   STYLE.CSS - 4V3S EDITION
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" style="font-size:20px"><text y="18">➕</text></svg>'), auto; /* Cursor retro */
+}
+
+body {
+    font-family: 'VT323', monospace;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Background Langit & Rumput */
+    background: linear-gradient(to bottom, #87CEEB 60%, #76c769 60%);
+    position: relative;
+}
+
+/* Awan Background */
+body::before {
+    content: ""; position: absolute; top: 10%; left: 5%;
+    width: 120px; height: 40px; background: white;
+    box-shadow: 140px 60px 0 white, 500px -20px 0 white;
+    opacity: 0.8; z-index: -1;
+}
+
+/* --- DESKTOP SHORTCUTS (LOGO SOSMED DI LUAR) --- */
+.desktop-grid {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column; /* Berjejer ke bawah seperti Windows asli */
+    gap: 20px;
+    z-index: 0;
+}
+
+.desktop-shortcut {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px;
+    text-align: center;
+    color: white;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.desktop-shortcut:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+}
+
+.desktop-shortcut:hover span {
+    background: #000080;
+    border: 1px dotted white;
+}
+
+.icon-box {
+    width: 45px; height: 45px;
+    background: #fff;
+    border: 2px solid #000;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 1.5rem;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+    margin-bottom: 5px;
+}
+
+.desktop-shortcut span {
+    font-family: 'VT323', monospace;
+    font-size: 1.1rem;
+    background: transparent;
+    padding: 2px 4px;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* Warna Logo */
+.yt { color: #FF0000; } .tt { color: #000; } .ig { color: #E1306C; }
+.fb { color: #1877F2; } .tw { color: #1DA1F2; } .sc { color: #FF5500; }
+
+/* --- MAIN WINDOW --- */
+.container {
+    width: 90%; max-width: 450px;
+    max-height: 75vh;
+    background: #c0c0c0; /* Abu-abu klasik Windows */
+    border: 2px solid #fff;
+    border-right-color: #404040;
+    border-bottom-color: #404040;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.3);
+    display: flex; flex-direction: column;
+    z-index: 10;
+    animation: popUp 0.5s;
+}
+
+@keyframes popUp { from { transform: scale(0); } to { transform: scale(1); } }
+
+.window-header {
+    background: #000080; /* Biru klasik */
+    padding: 4px 8px;
+    display: flex; justify-content: space-between; align-items: center;
+    color: white;
+}
+
+.header-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7rem; gap: 8px; display: flex; align-items: center;
+}
+
+.header-controls { display: flex; gap: 4px; }
+.btn-win {
+    width: 18px; height: 18px; background: #c0c0c0;
+    border: 1px solid #fff; border-right-color: #000; border-bottom-color: #000;
+    color: black; display: flex; justify-content: center; align-items: center;
+    font-size: 12px; cursor: pointer;
+}
+.btn-win.close { background: #ff0000; color: white; font-weight: bold;}
+
+.content-body {
+    padding: 20px;
+    text-align: center;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #ff00ff #c0c0c0;
+}
+
+.anime-avatar { font-size: 1.5rem; margin-bottom: 5px; letter-spacing: -2px; }
+
+.logo-area h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.5rem; color: #000;
+    margin-bottom: 10px; line-height: 1.4;
+    text-shadow: 2px 2px 0 #fff;
+}
+.highlight { color: #000080; }
+
+.pixel-text {
+    font-size: 1.2rem; color: #444; margin-bottom: 20px;
+    border-bottom: 1px dashed #444; display: inline-block;
+}
+
+.input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+input {
+    padding: 10px; font-family: 'VT323', monospace; font-size: 1.3rem;
+    border: 2px solid #404040; border-right-color: #fff; border-bottom-color: #fff;
+    background: #fff; outline: none; box-shadow: inset 2px 2px 0 #000;
+}
+button {
+    padding: 12px; font-family: 'Press Start 2P', cursive; font-size: 0.8rem;
+    background: #c0c0c0; color: #000;
+    border: 2px solid #fff; border-right-color: #404040; border-bottom-color: #404040;
+    cursor: pointer; active: transform: translate(1px, 1px);
+}
+button:active { border: 2px solid #404040; border-right-color: #fff; border-bottom-color: #fff; }
+
+/* --- HASIL DOWNLOAD --- */
+.result-card { border: 2px groove #fff; padding: 10px; margin-top: 10px; background: #dcdcdc; }
+.hidden { display: none; }
+.video-meta img { width: 100%; border: 2px inset #fff; margin-bottom: 10px; }
+
+/* TOMBOL DOWNLOAD (Diurutkan nanti via JS) */
+.res-btn {
+    display: flex; justify-content: space-between; align-items: center;
+    background: #000080; color: #fff;
+    border: 2px solid #fff; border-right-color: #000; border-bottom-color: #000;
+    padding: 8px 12px; margin-bottom: 8px; text-decoration: none;
+    font-size: 1.2rem; transition: 0.1s;
+}
+.res-btn:hover { background: #0000FF; }
+.res-btn:active { border: 2px solid #000; border-right-color: #fff; border-bottom-color: #fff; transform: translate(1px,1px); }
+.quality-badge { background: #fff; color: #000; padding: 0 4px; font-weight: bold; }
+
+/* --- TASKBAR RETRO --- */
+.taskbar {
+    position: fixed; bottom: 0; left: 0; width: 100%; height: 40px;
+    background: #c0c0c0;
+    border-top: 2px solid #fff;
+    display: flex; align-items: center; padding: 2px 4px;
+    z-index: 100; box-shadow: 0 -2px 0 #000;
+}
+
+.start-btn {
+    display: flex; align-items: center; gap: 5px;
+    background: #c0c0c0; padding: 4px 10px;
+    border: 2px solid #fff; border-right-color: #404040; border-bottom-color: #404040;
+    font-weight: bold; font-size: 1.1rem; cursor: pointer;
+    box-shadow: 1px 1px 0 #000;
+}
+.divider { width: 2px; height: 25px; background: #888; margin: 0 10px; border-right: 1px solid #fff; }
+
+.task-item {
+    background: #c0c0c0; padding: 4px 15px; margin-right: 5px;
+    border: 2px solid #fff; border-right-color: #404040; border-bottom-color: #404040;
+    font-size: 1rem; display: flex; align-items: center; gap: 5px; width: 180px;
+}
+.task-item.active {
+    background: #eee;
+    border: 2px solid #404040; border-right-color: #fff; border-bottom-color: #fff;
+    background-image: radial-gradient(#aaa 10%, transparent 10%); background-size: 2px 2px;
+    font-weight: bold;
+}
+
+.tray-area {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 10px;
+    border: 2px solid #888; border-bottom-color: #fff; border-right-color: #fff;
+    padding: 4px 10px; background: #c0c0c0;
+}

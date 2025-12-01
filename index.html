@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4V3S OS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="desktop-grid">
+        <div class="desktop-shortcut">
+            <div class="icon-box yt"><i class="fa-brands fa-youtube"></i></div>
+            <span>YouTube</span>
+        </div>
+        <div class="desktop-shortcut">
+            <div class="icon-box tt"><i class="fa-brands fa-tiktok"></i></div>
+            <span>TikTok</span>
+        </div>
+        <div class="desktop-shortcut">
+            <div class="icon-box ig"><i class="fa-brands fa-instagram"></i></div>
+            <span>Insta</span>
+        </div>
+        <div class="desktop-shortcut">
+            <div class="icon-box fb"><i class="fa-brands fa-facebook-f"></i></div>
+            <span>Facebook</span>
+        </div>
+        <div class="desktop-shortcut">
+            <div class="icon-box tw"><i class="fa-brands fa-twitter"></i></div>
+            <span>Twitter</span>
+        </div>
+        <div class="desktop-shortcut">
+            <div class="icon-box sc"><i class="fa-brands fa-soundcloud"></i></div>
+            <span>S.Cloud</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="window-header">
+            <div class="header-title">
+                <i class="fa-solid fa-floppy-disk"></i> 4V3S_Downloader.exe
+            </div>
+            <div class="header-controls">
+                <span class="btn-win">_</span>
+                <span class="btn-win">□</span>
+                <span class="btn-win close">X</span>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <div class="logo-area">
+                <div class="anime-avatar">
+                    ( ⌐■_■ )
+                </div>
+                <h1>4V3S <span class="highlight">DOWNLOADER</span></h1>
+                <p class="pixel-text">INSERT URL TO EXTRACT DATA...</p>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="videoUrl" placeholder="https://...">
+                <button id="downloadBtn">INITIALIZE DOWNLOAD</button>
+            </div>
+
+            <div id="resultArea" class="result-card hidden">
+                <div class="loader hidden" id="loader">
+                    <div class="pixel-spinner"></div>
+                    <p>DECODING DATA...</p>
+                </div>
+                
+                <div id="downloadContent" class="hidden">
+                    <div id="videoMeta" class="video-meta"></div>
+                    <div id="resolutionList" class="resolution-list"></div>
+                    <button onclick="resetApp()" class="btn-reset">ABORT / RESET</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start-btn">
+            <i class="fa-brands fa-windows"></i> START
+        </div>
+        <div class="divider"></div>
+        <div class="task-item active">
+            <i class="fa-solid fa-floppy-disk"></i> 4V3S Downloader
+        </div>
+        <div class="task-item">
+            <i class="fa-regular fa-folder-open"></i> My Documents
+        </div>
+        <div class="tray-area">
+            <i class="fa-solid fa-volume-high"></i>
+            <div class="clock">12:00 AM</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
