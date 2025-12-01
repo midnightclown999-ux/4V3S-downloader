@@ -1,5 +1,5 @@
 /* =========================================
-   STYLE.CSS - 4V3S EDITION (DUAL ADS)
+   STYLE.CSS - NEOTOKYO EDITION
    ========================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
@@ -16,17 +16,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #87CEEB 60%, #76c769 60%);
+    
+    /* --- UPDATE BACKGROUND --- */
+    /* Pastikan nama file gambar Anda sesuai dengan yang ada di dalam url('') */
+    background-image: url('tokyo-bg.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover; /* Agar gambar memenuhi layar */
+    
     position: relative;
 }
 
-/* Background Awan */
-body::before {
-    content: ""; position: absolute; top: 10%; left: 5%;
-    width: 120px; height: 40px; background: white;
-    box-shadow: 140px 60px 0 white, 500px -20px 0 white;
-    opacity: 0.8; z-index: -1;
-}
+/* (BAGIAN AWAN DIHAPUS AGAR SESUAI TEMA MALAM) */
 
 /* --- IKLAN 1: TOP BANNER (728x90) --- */
 .ad-container-top {
@@ -36,12 +38,12 @@ body::before {
     transform: translateX(-50%);
     z-index: 5;
     text-align: center;
-    background: rgba(0, 0, 0, 0.4);
+    /* Background sedikit lebih gelap transparan agar kontras dengan malam */
+    background: rgba(0, 0, 0, 0.6);
     padding: 5px;
     border: 1px dashed #fff;
     border-radius: 4px;
-    /* Efek Glitch Halus */
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px rgba(0,0,0,0.8);
 }
 
 /* --- IKLAN 2: SIDEBAR KANAN (NATIVE 1:4) --- */
@@ -49,21 +51,20 @@ body::before {
     position: absolute;
     right: 20px;
     top: 50%;
-    transform: translateY(-60%); /* Agak ke atas sedikit biar pas */
+    transform: translateY(-60%);
     z-index: 5;
     text-align: center;
-    background: rgba(255, 255, 255, 0.2); /* Semi transparan putih */
+    background: rgba(0, 0, 0, 0.5); /* Semi transparan gelap */
     padding: 10px;
     border: 2px solid #fff;
     border-right-color: #404040;
     border-bottom-color: #404040;
-    box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
-    /* Lebar maksimal agar tidak terlalu lebar */
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.5);
     max-width: 180px; 
-    min-height: 400px; /* Tinggi minimal untuk iklan vertikal */
+    min-height: 400px;
 }
 
-/* Label Iklan (Gaya Retro) */
+/* Label Iklan */
 .ad-label {
     color: #fff;
     font-family: 'VT323';
@@ -75,14 +76,9 @@ body::before {
     padding: 0 4px;
 }
 
-/* RESPONSIVE: Sembunyikan iklan desktop di HP agar tidak hancur */
-@media (max-width: 1100px) {
-    .ad-container-side { display: none; } /* Sembunyikan sidebar di layar sedang */
-}
-@media (max-width: 800px) {
-    .ad-container-top { display: none; } /* Sembunyikan banner atas di layar kecil */
-    /* Di HP, kita andalkan iklan Popunder saja */
-}
+/* RESPONSIVE IKLAN */
+@media (max-width: 1100px) { .ad-container-side { display: none; } }
+@media (max-width: 800px) { .ad-container-top { display: none; } }
 
 /* --- DESKTOP SHORTCUTS --- */
 .desktop-grid {
@@ -92,17 +88,19 @@ body::before {
 .desktop-shortcut {
     display: flex; flex-direction: column; align-items: center; width: 80px;
     text-align: center; color: white; transition: 0.2s; cursor: pointer;
+    /* Tambah shadow agar terbaca di background gelap */
+    text-shadow: 2px 2px 4px #000;
 }
 .desktop-shortcut:hover { filter: brightness(1.2); transform: scale(1.05); }
 .desktop-shortcut:hover span { background: #000080; border: 1px dotted white; }
 .icon-box {
     width: 45px; height: 45px; background: #fff; border: 2px solid #000;
     display: flex; justify-content: center; align-items: center; font-size: 1.5rem;
-    box-shadow: 4px 4px 0 rgba(0,0,0,0.3); margin-bottom: 5px;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.5); margin-bottom: 5px;
 }
 .desktop-shortcut span {
     font-family: 'VT323', monospace; font-size: 1.1rem;
-    background: transparent; padding: 2px 4px; text-shadow: 1px 1px 0 #000;
+    background: transparent; padding: 2px 4px; text-shadow: 2px 2px 0 #000;
 }
 /* Warna Logo */
 .yt { color: #FF0000; } .tt { color: #000; } .ig { color: #E1306C; }
@@ -113,7 +111,8 @@ body::before {
     width: 90%; max-width: 450px; max-height: 75vh;
     background: #c0c0c0; border: 2px solid #fff;
     border-right-color: #404040; border-bottom-color: #404040;
-    box-shadow: 10px 10px 0 rgba(0,0,0,0.3);
+    /* Shadow lebih kuat agar pop-out dari background gelap */
+    box-shadow: 15px 15px 0 rgba(0,0,0,0.5);
     display: flex; flex-direction: column; z-index: 10;
     animation: popUp 0.5s;
 }
@@ -201,3 +200,10 @@ button:active { border: 2px solid #404040; border-right-color: #fff; border-bott
     border: 2px solid #888; border-bottom-color: #fff; border-right-color: #fff;
     padding: 4px 10px; background: #c0c0c0;
 }
+
+/* LOADER */
+.pixel-spinner {
+    width: 32px; height: 32px; background: #000080;
+    margin: 0 auto 10px; animation: spin 1s steps(8) infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
